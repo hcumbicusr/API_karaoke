@@ -48,7 +48,7 @@ $(document).ready(function(){
     $("#btn_lista").click(function(){
         $.ajax({
             type: "GET",
-            url: "v1/pedidos/pedidos.php",
+            url: "v1/generos/generos.php",
             dataType: "json",
             cache: false,
             data: {
