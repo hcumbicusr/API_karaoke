@@ -1,0 +1,5 @@
+Options +FollowSymLinks -Multiviews
+
+RewriteEngine On
+
+RewriteRule ^([^/]+)/([^/]+) usuarios.php?accion=$1&detalle=$2 [L,QSA]
