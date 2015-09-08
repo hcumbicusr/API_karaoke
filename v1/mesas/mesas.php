@@ -16,15 +16,28 @@ if (!empty($_REQUEST['accion'])) {
             if (!empty($_POST)) {
                 $objMesa = new MesaModel();
                 Funciones::filtraGET_POST($_POST);
-                $objMesa->setNumber(trim($_POST['number']));
+                // se recibe la cantidad de mesas a agregar
+                $n = trim($_POST['number']);
+                $cont = 0;
+                while ($n > $cont){
+                    $mesaFin = $objMesa->selectUltimaMesa();
+                    $objMesa->setNumber(intval($mesaFin[0]['number']) + 1);
+                    //die(var_dump($objMesa->getNumber()));
+                    $token = Funciones::generaTokenMesa($objMesa->getNumber());
+                    //die(var_dump($token));
+                    $objMesa->setToken($token);
+                    // retorna un arr con el estado y el id_pedido
+                    $salida = $objMesa->registrarMesa();
+                    
+                    list($estado,$message) = explode(",", $salida);
+                    if ($estado == 'OK') {
+                        $cont++;
+                    }else {
+                        $cont = $n; // para salir del ciclo while
+                    }
+                }
                 
-                $token = Funciones::generaTokenMesa(trim($_POST['number']));
-                //die(var_dump($token));
-                $objMesa->setToken($token);
-                // retorna un arr con el estado y el id_pedido
-                $salida = $objMesa->registrarMesa();
-                list($estado,$message) = explode(",", $salida);
-                if ($estado == 'OK') {
+                if ($n == $cont) {
                     $estado = 'success';
                 }else {
                     $estado = 'error';

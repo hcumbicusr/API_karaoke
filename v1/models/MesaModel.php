@@ -84,6 +84,17 @@ class MesaModel {
         return $result;
     }
     /**
+     * Select mesa actual activa
+     */
+    public function selectUltimaMesa() {
+        $objDB = new Class_Db();
+        $con = $objDB->selectManager()->connect();
+        //$browser = Funciones::DatosBrowser();
+        $query = "select number from table_business where stat = 2 order by id_table desc limit 1";
+        $result = $objDB->selectManager()->select($con, $query);
+        return $result;
+    }
+    /**
      * Eliminar una mesa
      */
     public function eliminarMesa() {

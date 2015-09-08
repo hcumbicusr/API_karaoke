@@ -343,7 +343,7 @@ class Funciones {
     {
         $objDB = new Class_Db();
         $con = $objDB->selectManager()->connect();
-        $query = "select * from table_business where number = '$mesa'";
+        $query = "select * from table_business where number = '$mesa' where stat = 2";
         $result = $objDB->selectManager()->select($con, $query);
         //die(var_dump($result));
         $cad = NULL;
