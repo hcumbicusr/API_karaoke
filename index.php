@@ -15,6 +15,15 @@
             <a id="btn_enviar" >Enviar</a>
         </form>
         
+        ------------
+        <form action="v1/connect/connect.php" >
+            <input id="accion" name="accion" value="connect">
+            <input type="submit"  value="TEST">
+        </form> <br>
+        <form >
+            <a id="btn_enviar" >Enviar</a>
+        </form>
+        
         <input id="btn_lista" type="button" value="enviar">
         <script src="js/jquery.js"></script>
         <script src="js/app.js"></script>

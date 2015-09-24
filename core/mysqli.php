@@ -10,11 +10,16 @@ class Class_Mysqli implements interfaceDb{
         $con = new mysqli(
                 $config['accessBD']['host'], 
                 $config['accessBD']['user'], 
-                $config['accessBD']['pass'],
+                $config['accessBD']['pass'], 
                 $config['accessBD']['db']);
-        $con->query("SET NAMES 'utf8'");
+        
         if ($con->connect_errno) {
-            echo "Fallo de la conexion a MySQL: (" . $con->connect_error . ") ";
+            if($config['entorno'] == 'D'){
+                echo "Fallo de la conexion a MySQL: (" . $con->connect_error . ") ";
+                die();
+            }
+        }else{
+            $con->query("SET NAMES 'utf8'");
         }
         
         //die(var_dump($con));

@@ -110,13 +110,23 @@ if (!empty($_REQUEST['accion'])) {
                         break;
                     default: 
                         $objCancion->setId_typemusic(1);
-                        echo json_encode($objCancion->listarCancionesTipo());
+                        $result = $objCancion->listarCancionesTipo();
+                        for ($i = 0; $i < count($result); $i++) {
+                            $result[$i]['year_album'] = str_replace("", "-", $result[$i]['year_album']);
+                            $result[$i]['ruta'] = str_replace("", "-", $result[$i]['ruta']);
+                        }
+                        echo json_encode($result);
                         break;
                 }
                 
             }else { // muestra todos las canciones
                 $objCancion->setId_typemusic(1);
-                echo json_encode($objCancion->listarCancionesTipo());
+                $result = $objCancion->listarCancionesTipo();
+                for ($i = 0; $i < count($result); $i++) {
+                    $result[$i]['year_album'] = str_replace("", "-", $result[$i]['year_album']);
+                    $result[$i]['ruta'] = str_replace("", "-", $result[$i]['ruta']);
+                }
+                echo json_encode($result);
                 exit();
             }
             break;

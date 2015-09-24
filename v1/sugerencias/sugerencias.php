@@ -44,12 +44,12 @@ if (!empty($_REQUEST['accion'])) {
             break;
         case "list": //
             $objSugerencia = new SugerenciaModel();
-            if (!empty($_GET['detalle'])) { // id del pedido
-                Funciones::filtraGET_POST($_GET);
-                switch ($_GET['detalle']) {
+            if (!empty($_REQUEST['detalle'])) { // id del pedido
+                Funciones::filtraGET_POST($_REQUEST);
+                switch ($_REQUEST['detalle']) {
                     case 'estado': 
-                        if (!empty($_GET['param'])) {
-                            $objSugerencia->setState($_GET['stat']);
+                        if (!empty($_REQUEST['param'])) {
+                            $objSugerencia->setState($_REQUEST['stat']);
                             echo json_encode($objSugerencia->listarSugerenciasEstado());
                             exit();
                         }else {

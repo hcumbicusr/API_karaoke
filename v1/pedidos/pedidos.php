@@ -42,12 +42,12 @@ if (!empty($_REQUEST['accion'])) {
             break;
         case "list": //
             $objPedido = new PedidoModel();
-            if (!empty($_GET['detalle'])) { // id del pedido
-                Funciones::filtraGET_POST($_GET);
-                switch ($_GET['detalle']) {
+            if (!empty($_REQUEST['detalle'])) { // id del pedido
+                Funciones::filtraGET_POST($_REQUEST);
+                switch ($_REQUEST['detalle']) {
                     case 'id': 
-                        if (!empty($_GET['param'])) {
-                            $objPedido->setId_order($_GET['param']);
+                        if (!empty($_REQUEST['param'])) {
+                            $objPedido->setId_order($_REQUEST['param']);
                             echo json_encode($objPedido->detallePedido());
                             exit();
                         }else {
@@ -59,9 +59,9 @@ if (!empty($_REQUEST['accion'])) {
                             exit();
                         }
                         break;
-                    case 'estado': //die(var_dump($_GET));
-                        if (!empty($_GET['param'])) {
-                            $estado = $_GET['param'];
+                    case 'estado': //die(var_dump($_REQUEST));
+                        if (!empty($_REQUEST['param'])) {
+                            $estado = $_REQUEST['param'];
                             if ($estado == "p") {
                                 $estado = 0;
                             }else {
@@ -82,8 +82,8 @@ if (!empty($_REQUEST['accion'])) {
                     case 'f_hoy': 
                         echo json_encode($objPedido->listarPedidosHoy());
                         break;
-                    case 'fechas': //die(var_dump($_GET));
-                        if (empty($_GET['f_desde']) || empty($_GET['f_hasta'])) {
+                    case 'fechas': //die(var_dump($_REQUEST));
+                        if (empty($_REQUEST['f_desde']) || empty($_REQUEST['f_hasta'])) {
                             $response = [
                                 "type" => "notice",
                                 "message" => "No se han enviado los parámetros requeridos"
@@ -91,16 +91,16 @@ if (!empty($_REQUEST['accion'])) {
                             echo json_encode($response);
                             exit();
                         }else {
-                            //die(var_dump($_GET));
-                            $objPedido->setF_desde($_GET['f_desde']);
-                            $objPedido->setF_hasta($_GET['f_hasta']);
+                            //die(var_dump($_REQUEST));
+                            $objPedido->setF_desde($_REQUEST['f_desde']);
+                            $objPedido->setF_hasta($_REQUEST['f_hasta']);
                             echo json_encode($objPedido->listarPedidosFechas());
                             exit();
                         }
                         break;
-                    case 'mesa': //die(var_dump($_GET));
-                        if (!empty($_GET['param'])) {
-                            $mesa = $_GET['param'];
+                    case 'mesa': //die(var_dump($_REQUEST));
+                        if (!empty($_REQUEST['param'])) {
+                            $mesa = $_REQUEST['param'];
                             $objPedido->setId_table($mesa);
                             echo json_encode($objPedido->listarPedidosMesa());
                             exit();
