@@ -16,7 +16,7 @@
         </form>
         
         ------------
-        <form action="v1/connect/connect.php" >
+        <form action="v1/connect/connect.php" method="post" >
             <input id="accion" name="accion" value="connect">
             <input type="submit"  value="TEST">
         </form> <br>

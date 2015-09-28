@@ -85,7 +85,7 @@ class PedidoModel
         $objDB = new Class_Db();
         $con = $objDB->selectManager()->connect();
         //$browser = Funciones::DatosBrowser();
-        $procedure = "sp_listar_pedidos";
+        $procedure = "sp_listar_pedidos_sin_atender";
         $result = $objDB->selectManager()->spSelect($con, $procedure);
         return $result;
     }
@@ -219,6 +219,26 @@ class PedidoModel
         $procedure = "sp_cancion_playlist";
         
         $input ="'".$this->getId_order()."'";
+        // retorna [estado]
+        $result = $objDB->selectManager()->spInsert($con, $procedure, $input);
+        
+        return $result;
+    }
+    
+    /**
+     * cambia de estadp a  un pedido -- sp_cambiar_estado_pedido
+     * @return estado
+     */
+     function atenderPedido()
+    {
+        $val = false;
+        $objDB = new Class_Db();
+        $con = $objDB->selectManager()->connect();
+        //$browser = Funciones::DatosBrowser();
+        $procedure = "sp_cambiar_estado_pedido";
+        
+        $input ="'".$this->getId_order()."',";
+        $input .="'".$this->getState()."'";
         // retorna [estado]
         $result = $objDB->selectManager()->spInsert($con, $procedure, $input);
         

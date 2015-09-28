@@ -212,7 +212,38 @@ if (!empty($_REQUEST['accion'])) {
                 ];
                 echo json_encode($response);
             }
-            break;
+            break;//
+        case "atender_pedido":
+            if (!empty($_POST)) {
+                //die(var_dump($_POST));
+                $objPedido = new PedidoModel();
+                Funciones::filtraGET_POST($_POST);
+                $objPedido->setId_order($_POST['id_order']);
+                $objPedido->setState($_POST['state']);// 5 = agreagado al playlist , 1 = atendido
+                // retorna OK
+                $salida = $objPedido->atenderPedido();
+                $message = null;
+                if ($salida == 'OK') {
+                    $salida = 'success';
+                    $message = 'El pedido ha cambiado de estado.';
+                }else {
+                    $salida = 'error';
+                    $message = 'Ocurrió un error.';
+                }
+                $return = [
+                    "type" => $salida,
+                    "message" => $message
+                ];
+                echo json_encode($return);
+                exit();
+            }else {
+                $response = [
+                    "type" => "error",
+                    "message" => "Los datos no han sido enviados correctamente. [Verbo HTTP]"
+                ];
+                echo json_encode($response);
+            }
+            break;//sp_cambiar_estado_pedido
         default:
             // json .. accion no encontrada
             $response = [
