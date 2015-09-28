@@ -98,6 +98,27 @@ if (!empty($_REQUEST['accion'])) {
             }
             
             break;
+        
+        case "login_table": //para la validacion del token con la mesa respectiva
+            // retorna todos los datos de la mesa seleccionada
+            if (!empty($_POST)) {
+                $objMesa = new MesaModel();
+                Funciones::filtraGET_POST($_POST);
+                $objMesa->setToken($_POST['token']);
+                // retorna OK
+                $salida = $objMesa->loginMesaToken();
+                
+                echo json_encode($salida); // toda la fila de la table_business con el token ingresado -- NULL en caso no encontrado
+                exit();
+            }else {
+                $response = [
+                    "type" => "error",
+                    "message" => "Los datos no han sido enviados correctamente. [Verbo HTTP]"
+                ];
+                echo json_encode($response);
+            }
+            
+            break;
 
         default:
             // json .. accion no encontrada

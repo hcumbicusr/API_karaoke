@@ -106,6 +106,18 @@ class MesaModel {
         $result = $objDB->selectManager()->spInsert($con, $procedure,$input);
         return $result;
     }
+    /**
+     * login de mesa . con el token ingresado
+     */
+    public function loginMesaToken() {
+        $objDB = new Class_Db();
+        $con = $objDB->selectManager()->connect();
+        //$browser = Funciones::DatosBrowser();
+        $procedure = "sp_login_mesa_token";
+        $input = "'".$this->getToken()."'";
+        $result = $objDB->selectManager()->spSelect($con, $procedure,$input);
+        return $result;
+    }
 
 
     
